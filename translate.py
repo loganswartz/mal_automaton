@@ -23,23 +23,6 @@ from mal_automaton.utils import pretty_print
 
 log = logging.getLogger(__name__)
 
-def get_mal_franchise(series_name):
-    mal = Jikan()
-
-    # get the top / first result for the series title
-    results = mal.search('anime', series_name, parameters={'limit': 1})
-
-    # extract MAL id
-    mal_id = results['results'][0]['mal_id']
-    log.debug(f"MAL returned {mal_id} as the most likely match for the title '{series_name}'.")
-
-    # get all prequels and sequels (seasons)
-    franchise = get_all_seasons(mal_id)
-    log.debug(f"Fetched franchise: {list(map(lambda i: i['title'], franchise))}")
-
-    # return list of series (in canonical series order)
-    return franchise
-
 
 def tvdb_to_mal(webhook):
     """
@@ -79,6 +62,7 @@ def tvdb_to_mal(webhook):
 
     return False
 
+
 def find_equivalent_by_date(airdate, episode_list):
         def one_day_apart(episode):
             """Compares 2 dates, returns if the difference < 1 day"""
@@ -92,58 +76,10 @@ def find_equivalent_by_date(airdate, episode_list):
         # check if played episode is in the MAL series using airdates
         return list(filter(one_day_apart, episode_list))
 
-def get_all_seasons(mal_id):
-    """
-    This function takes a MAL anime ID, finds all the sequels and prequels to
-    that series, and returns info on them all in an ordered array. Essentially,
-    gets all the seasons of a series, since traditionally in America, an anime
-    will have several seasons all under one show name, but in Japan, each season
-    is its own standalone 'series' that is a sequel to the previous series.
-    """
-    mal = Jikan()
 
-    # fetch info on the provided ID
-    original = mal.anime(mal_id)
-
-    # create deep copy of object
-    current = original.copy()
-    anime_list = [original]
-
-    # get all prequels and prepend to list
-    while 'Prequel' in current['related']:
-        # prepend prequel to list
-        prequel = mal.anime(current['related']['Prequel'][0]['mal_id'])
-        anime_list = [prequel] + anime_list
-        # set current to prequel, and repeat until we reach the first season
-        current = prequel
-
-    # reset current
-    current = original.copy()
-
-    # get all sequels and append to list
-    while 'Sequel' in current['related']:
-        # append sequel to list
-        sequel = mal.anime(current['related']['Sequel'][0]['mal_id'])
-        anime_list = anime_list + [sequel]
-        # set current to sequel, and repeat until we reach the last season
-        current = sequel
-
-    # return finished list
-    return anime_list
-
-
-def get_all_mal_episodes(mal_id):
-    """
-    Essentially just a function to fetch and de-paginate the results of an
-    episode search via Jikan
-    """
-    mal = Jikan()
-
-    data = mal.anime(mal_id, extension='episodes')
-    episodes = data['episodes']
-    last_page = data['episodes_last_page']
-    if last_page > 1:
-        for i in range(2, last_page+1):
-            episodes += mal.anime(mal_id, extension='episodes', page=i)['episodes']
-    return episodes
+def get_absolute_episode(index: int, ep_list: list):
+    filtered = list(filter(lambda ep: ep['absoluteNumber'] == index, ep_list))
+    if len(filtered) > 1:
+        raise ValueError('More than 1 episode found with an absolute index of {index}.')
+    return filtered[0]
 
