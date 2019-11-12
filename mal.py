@@ -2,6 +2,9 @@
 
 # builtins
 import pathlib
+from difflib import SequenceMatcher
+from itertools import combinations
+from collections import Counter
 
 # 3rd party
 from jikanpy import Jikan
@@ -15,8 +18,28 @@ class MAL_Franchise(object):
     def __init__(self, mal_id):
         self._jikan = Jikan()
         self.series = self.get_franchise_list(mal_id)
-        self.title = self.series[0].title   # assume that the first series is the title of the franchise
+        self.title = self.discern_title()   # assume that the first series is the title of the franchise
         self.release_run = (self.series[0].premiered, self.series[-1].ended)   # TODO: check if show is still airing and change accordingly
+
+    def discern_title(self):
+        substrings = Counter()
+
+        # compare all combinations of series titles in the franchise
+        combos = combinations(self.series, 2)
+        for (a, b) in combos:
+            matcher = SequenceMatcher(None, a.title, b.title)
+            diff = matcher.find_longest_match(0, len(a.title), 0, len(b.title))
+            if diff:
+                string = a.title[diff.a:diff.size]
+                substrings[string] += 1
+
+        # check if we got any matches
+        if substrings.most_common(1):
+            best_match = substrings.most_common(1)[0][0]
+        else:
+            best_match = None
+        # don't return substrings less than 4 characters
+        return best_match if best_match is not None and len(best_match) >= 4 else self.series[0].title
 
     def get_franchise_list(self, mal_id):
         """
@@ -99,9 +122,9 @@ class MAL_Series(object):
         self.background = self._raw['background']
         self.studio = self._raw['studios']
         self.rating = self._raw['rating']
+        self.episodes = self.fetch_episodes()
         self.sequel = self._raw['related'].get('Sequel')
         self.prequel = self._raw['related'].get('Prequel')
-        self.episodes = self.fetch_episodes()
 
     def fetch_episodes(self):
         """
