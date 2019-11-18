@@ -19,6 +19,7 @@ from dateutil.tz import UTC
 # my modules
 from mal_automaton.account import MAL_Account
 from mal_automaton.utils import pretty_print
+from mal_automaton.mal import MAL_Franchise
 
 
 log = logging.getLogger(__name__)
@@ -33,32 +34,31 @@ def tvdb_to_mal(webhook):
     """
 
     # try to get franchise based on tvdb show title
-    franchise = get_mal_franchise(webhook.media.series)
+    franchise = MAL_Franchise(name=webhook.media.series)
 
     # check all seasons for the given episode
     log.info(f"Episode to find is '{webhook.media.title}'.")
-    for series in franchise:
-        log.info(f"Checking {series['title']}....")
+    for series in franchise.series:
+        log.info(f"Checking {series.title}....")
 
         # get all episodes for the series
-        episodes = get_all_mal_episodes(series['mal_id'])
         log.debug('Episodes:')
-        pretty_print(episodes, debug=True)
+        pretty_print(series.episodes, debug=True)
 
-        filtered = find_equivalent_by_date(webhook.media.airdate, episodes)
+        filtered = find_equivalent_by_date(webhook.media.airdate, series.episodes)
 
         # log.debug(f'Filtered:')
         # pretty_print(filtered, debug=True)
         if filtered:
-            log.info(f"MAL ID is {series['mal_id']}")
-            return {'mal_id': series['mal_id'], 'episode': filtered[0]['episode_id']}
+            log.info(f"MAL Series is {series}")
+            return {'mal_id': series.mal_id, 'episode': filtered[0].id}
 
         log.info('No episode found by airdate, trying by name....')
-        filtered = list(filter(lambda ep: ep['title'] == webhook.media.title, episodes))
+        filtered = list(filter(lambda ep: ep.title == webhook.media.title, series.episodes))
 
         if filtered:
-            log.info(f"MAL ID is {series['mal_id']}")
-            return {'mal_id': series['mal_id'], 'episode': filtered[0]['episode_id']}
+            log.info(f"MAL Series is {series}")
+            return {'mal_id': series.mal_id, 'episode': filtered[0].id}
 
     return False
 
@@ -67,10 +67,9 @@ def find_equivalent_by_date(airdate, episode_list):
         def one_day_apart(episode):
             """Compares 2 dates, returns if the difference < 1 day"""
             delta = timedelta(days=1, seconds=1)
-            if not episode['aired']:   # if airdate in MAL is null, abort
+            if not episode.airdate:   # if airdate in MAL is null, abort
                 return False
-            mal_airdate = isoparse(episode['aired'])
-            log.debug(f"{episode['title']} - mal: {mal_airdate}; tvdb: {airdate}")
+            log.debug(f"{episode.title} - mal: {episode.airdate}; tvdb: {airdate}")
             return abs(mal_airdate-airdate) < delta
 
         # check if played episode is in the MAL series using airdates

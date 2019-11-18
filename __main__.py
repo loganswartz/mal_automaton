@@ -26,9 +26,8 @@ if __name__ == "__main__":
         'KonoSuba': pathlib.Path('~/examples/plex_webhooks/others/33.json').expanduser(),
     }
 
-    webhook_path = examples['NoGunsLife']
+    webhook_path = examples['KonoSuba']
     # get mal_id from webhook
     webhook = load_webhook(webhook_path)
     mal_id = tvdb_to_mal(webhook)
-    # user = MAL_Account('MrStarfox64')
 

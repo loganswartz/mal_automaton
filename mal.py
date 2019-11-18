@@ -15,8 +15,14 @@ from mal_automaton.anime import AnimeType
 
 
 class MAL_Franchise(object):
-    def __init__(self, mal_id):
+    def __init__(self, *, id = None, name = None):
         self._jikan = Jikan()
+        if id:
+            mal_id = id
+        elif name:
+            mal_id = self._jikan.search('anime', name)['results'][0]['mal_id']
+        else:
+            raise ValueError('You must specify an ID or name.')
         self.series = self.get_franchise_list(mal_id)
         self.title = self.discern_title()   # assume that the first series is the title of the franchise
         self.release_run = (self.series[0].premiered, self.series[-1].ended)   # TODO: check if show is still airing and change accordingly
@@ -84,6 +90,12 @@ class MAL_Franchise(object):
 
         # return finished list
         return [MAL_Series(i) for i in anime_list]
+
+    def absolute_episode(self, index):
+        # make one big (ordered) list of episodes, and get the correct index from that list
+        if not self._absolute:
+            self._absolute = [episode for series in self.series for episode in series.episodes]
+        return self._absolute[index-1]
 
     def __repr__(self):
         return f"<MAL_Franchise: {self.title}>"
