@@ -161,7 +161,7 @@ class MAL_Episode(object):
         self.id = data['episode_id']
         self.title = data['title']
         self.title_romanji = data['title_romanji']
-        self.airdate = data['aired']
+        self.airdate = isoparse(data['aired']) if data['aired'] else None
         self.is_filler = data['filler']
         self.is_recap = data['recap']
         self.video_url = data['video_url']

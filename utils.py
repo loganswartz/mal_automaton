@@ -57,7 +57,7 @@ def pretty_print(list, *, debug=False):
     string = ''
     string += '# -----------------------------------\n'
     for i in list:
-        string += f" > '{i['title']}'\n"
+        string += f" > '{i.title}'\n"
     string += '# -----------------------------------\n'
     if debug:
         log.debug('\n' + string)
