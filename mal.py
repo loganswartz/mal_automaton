@@ -9,23 +9,50 @@ from collections import Counter
 # 3rd party
 from jikanpy import Jikan
 from dateutil.parser import isoparse
+from mementos import memento_factory, with_metaclass
 
 # my modules
 from mal_automaton.anime import AnimeType
 
 
-class MAL_Franchise(object):
-    def __init__(self, *, id = None, name = None):
+def mal_id_from_info(id=None, *, name=None):
+    """
+    Function that returns a MAL ID from either a given name or ID. Used by the
+    memento factory to allow us to memoize based on the actual MAL ID of a
+    series initialized through a name, instead of defaulting to memoizing based
+    on init parameters (default mementos behavior)
+    """
+    jikan = Jikan()
+    if id:
+        mal_id = id
+    elif name:
+        mal_id = jikan.search('anime', name)['results'][0]['mal_id']
+    else:
+        raise ValueError('You must specify an ID or name.')
+    return mal_id
+
+def episode_id_from_info(series, data):
+    return (series, data['episode_id'])
+
+"""
+Create the factories. The lambda function returns a key to be used as the index
+whatever we are caching. Since mementos uses one big unified dict as the cache,
+we build a tuple containing the class and the key we actually want to use, and
+we use that as the key. Without including the class in the tuple, creating a
+series with the same ID as an already created Franchise will only return that
+franchise, and vice versa.
+"""
+MAL_SeriesMemoizer = memento_factory('MAL_SeriesMemoizer', lambda cls, args, kwargs: (cls, mal_id_from_info(*args, **kwargs)) )
+MAL_EpisodeMemoizer = memento_factory('MAL_EpisodeMemoizer', lambda cls, args, kwargs: (cls, episode_id_from_info(*args, **kwargs)) )
+
+
+class MAL_Franchise(metaclass=MAL_SeriesMemoizer):
+    def __init__(self, id, **kwargs):
         self._jikan = Jikan()
-        if id:
-            mal_id = id
-        elif name:
-            mal_id = self._jikan.search('anime', name)['results'][0]['mal_id']
-        else:
-            raise ValueError('You must specify an ID or name.')
-        self.series = self.get_franchise_list(mal_id)
+        self.series = self.get_franchise_list(id)
         self.title = self.discern_title()   # assume that the first series is the title of the franchise
         self.release_run = (self.series[0].premiered, self.series[-1].ended)   # TODO: check if show is still airing and change accordingly
+        self._absolute = [episode for series in self.series for episode in series.episodes]
 
     def discern_title(self):
         substrings = Counter()
@@ -93,16 +120,14 @@ class MAL_Franchise(object):
 
     def absolute_episode(self, index):
         # make one big (ordered) list of episodes, and get the correct index from that list
-        if not self._absolute:
-            self._absolute = [episode for series in self.series for episode in series.episodes]
         return self._absolute[index-1]
 
     def __repr__(self):
         return f"<MAL_Franchise: {self.title}>"
 
 
-class MAL_Series(object):
-    def __init__(self, mal_id):
+class MAL_Series(metaclass=MAL_SeriesMemoizer):
+    def __init__(self, mal_id, **kwargs):
         self._jikan = Jikan()
         self._raw = self._jikan.anime(mal_id)
         # MAL meta info
@@ -135,8 +160,22 @@ class MAL_Series(object):
         self.studio = self._raw['studios']
         self.rating = self._raw['rating']
         self.episodes = self.fetch_episodes()
-        self.sequel = self._raw['related'].get('Sequel')
-        self.prequel = self._raw['related'].get('Prequel')
+        try:
+            self._sequel_id = self._raw['related'].get('Sequel')[0]['mal_id']
+        except TypeError:
+            self._sequel_id = None
+        try:
+            self._prequel_id = self._raw['related'].get('Prequel')[0]['mal_id']
+        except TypeError:
+            self._prequel_id = None
+
+    @property
+    def sequel(self):
+        return MAL_Series(self._sequel_id) if self._sequel_id else None
+
+    @property
+    def prequel(self):
+        return MAL_Series(self._prequel_id) if self._prequel_id else None
 
     def fetch_episodes(self):
         """
@@ -150,14 +189,15 @@ class MAL_Series(object):
             for i in range(2, last_page+1):
                 episodes += self._jikan.anime(self.id, extension='episodes', page=i)['episodes']
         # return as episode object
-        return [MAL_Episode(ep) for ep in episodes]
+        return [MAL_Episode(self, ep) for ep in episodes]
 
     def __repr__(self):
         return f"<MAL_Series: {self.title} [{self.id}]>"
 
 
-class MAL_Episode(object):
-    def __init__(self, data):
+class MAL_Episode(metaclass=MAL_EpisodeMemoizer):
+    def __init__(self, series, data):
+        self.series = series
         self.id = data['episode_id']
         self.title = data['title']
         self.title_romanji = data['title_romanji']
