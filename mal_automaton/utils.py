@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 
 # buitlins
-from pathlib import Path
-import json
 import logging
 
 
 log = logging.getLogger(__name__)
+
 
 def retry(tries = 1):
     """
@@ -20,7 +19,7 @@ def retry(tries = 1):
             while counter < tries:
                 try:
                     return func(*args, **kwargs)
-                except:
+                except Exception:
                     counter += 1
                     if counter >= counter:
                         raise

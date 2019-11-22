@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
-#builtins
+# builtins
 import logging
+import re
 
 # 3rd party
 import requests
@@ -12,6 +13,7 @@ from mal_automaton.utils import retry
 
 
 log = logging.getLogger(__name__)
+
 
 class MAL_Account(object):
     """
@@ -29,7 +31,8 @@ class MAL_Account(object):
         if password:
             self.user = MAL_Session(self.username, password)
         else:
-            log.warning('No password given, modifications cannot be made to your list until you call add_password().')
+            log.warning(('No password given, modifications cannot be made to '
+                         'your list until you call add_password().'))
         self.get_list()
 
     @retry(tries=3)
@@ -106,7 +109,7 @@ class MAL_Session(object):
         self.session = requests.Session()
         self.login()
 
-    def login():
+    def login(self):
         mal_login = 'https://myanimelist.net/login.php'
 
         # grab the csrf_token
@@ -133,7 +136,7 @@ class MAL_Session(object):
         }
         return data
 
-    def add_series(mal_id, status = WatchStatus.PlanToWatch, score = 0, watched_episodes = 0):
+    def add_series(self, mal_id, status = WatchStatus.PlanToWatch, score = 0, watched_episodes = 0):
         url = 'https://myanimelist.net/ownlist/anime/add.json'
         data = {
             'csrf'      : self.csrf_token,
@@ -146,7 +149,7 @@ class MAL_Session(object):
         resp = self.session.post(url, data=data, headers=self.headers)
         return resp.ok
 
-    def edit_series(mal_id, status = WatchStatus.Watching, score = 0, watched_episodes = 0):
+    def edit_series(self, mal_id, status = WatchStatus.Watching, score = 0, watched_episodes = 0):
         url = 'https://myanimelist.net/ownlist/anime/edit.json'
         data = {
             'csrf'      : self.csrf_token,
@@ -159,7 +162,7 @@ class MAL_Session(object):
         resp = self.session.post(url, data=data, headers=self.headers)
         return resp.ok
 
-    def delete_series(mal_id):
+    def delete_series(self, mal_id):
         url = f'https://myanimelist.net/ownlist/anime/{mal_id}/delete'
         data = {'csrf': self.csrf_token}
 

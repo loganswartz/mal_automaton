@@ -2,12 +2,11 @@
 
 # builtins
 import json
-import pathlib
+from pathlib import Path
 import logging
 
 # my modules
 from mal_automaton.plex import PlexWebhook
-from mal_automaton.account import MAL_Account
 from mal_automaton.translate import tvdb_to_mal
 
 
@@ -21,9 +20,9 @@ def load_webhook(path):
 if __name__ == "__main__":
     # load faux payload
     examples = {
-        'NoGunsLife': pathlib.Path('~/examples/plex_webhooks/others/23.json').expanduser(),
-        'DrStone': pathlib.Path('~/examples/plex_webhooks/others/28.json').expanduser(),
-        'KonoSuba': pathlib.Path('~/examples/plex_webhooks/others/33.json').expanduser(),
+        'NoGunsLife': Path('~/examples/plex_webhooks/others/23.json').expanduser(),
+        'DrStone': Path('~/examples/plex_webhooks/others/28.json').expanduser(),
+        'KonoSuba': Path('~/examples/plex_webhooks/others/33.json').expanduser(),
     }
 
     webhook_path = examples['KonoSuba']

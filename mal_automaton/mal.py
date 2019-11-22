@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 # builtins
-import pathlib
 from enum import Enum
 from difflib import SequenceMatcher
 from itertools import combinations
@@ -10,7 +9,7 @@ from collections import Counter
 # 3rd party
 from jikanpy import Jikan
 from dateutil.parser import isoparse
-from mementos import memento_factory, with_metaclass
+from mementos import memento_factory
 
 
 def mal_id_from_info(id=None, *, name=None):
@@ -29,8 +28,10 @@ def mal_id_from_info(id=None, *, name=None):
         raise ValueError('You must specify an ID or name.')
     return mal_id
 
+
 def episode_id_from_info(series, data):
     return (series, data['episode_id'])
+
 
 """
 Create the factories. The lambda function returns a key to be used as the index
@@ -40,8 +41,10 @@ we use that as the key. Without including the class in the tuple, creating a
 series with the same ID as an already created Franchise will only return that
 franchise, and vice versa.
 """
-MAL_SeriesMemoizer = memento_factory('MAL_SeriesMemoizer', lambda cls, args, kwargs: (cls, mal_id_from_info(*args, **kwargs)) )
-MAL_EpisodeMemoizer = memento_factory('MAL_EpisodeMemoizer', lambda cls, args, kwargs: (cls, episode_id_from_info(*args, **kwargs)) )
+MAL_SeriesMemoizer = memento_factory('MAL_SeriesMemoizer',
+        lambda cls, args, kwargs: (cls, mal_id_from_info(*args, **kwargs)))
+MAL_EpisodeMemoizer = memento_factory('MAL_EpisodeMemoizer',
+        lambda cls, args, kwargs: (cls, episode_id_from_info(*args, **kwargs)))
 
 
 class MAL_Franchise(metaclass=MAL_SeriesMemoizer):
@@ -219,6 +222,7 @@ class AnimeType(Enum):
     ONA     = 'ONA'
     Special = 'Special'
 
+
 class AiringStatus(Enum):
     Airing      = 'Airing', 1
     Finished    = 'Finished Airing', 2
@@ -235,6 +239,7 @@ class AiringStatus(Enum):
 
     def __repr__(self):
         return f'<{self.__class__.__name__}.{self._name_}: {", ".join([repr(v) for v in self._all_values])}>'
+
 
 class AnimeSource(Enum):
     FourKomaManga = '4-koma manga'

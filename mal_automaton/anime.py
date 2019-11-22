@@ -14,6 +14,7 @@ from mal_automaton.mal import MAL_Series, AnimeType, AiringStatus
 
 log = logging.getLogger(__name__)
 
+
 class AnimeList(object):
     def __init__(self, username):
         self.user = username
@@ -96,9 +97,11 @@ class AnimeStatus(object):
         self.score = score
         self.watched_episodes = watched_episodes
 
+
 class WatchStatus(Enum):
     Watching    = 1
     Completed   = 2
     OnHold      = 3
     Dropped     = 4
     PlanToWatch = 6
+

@@ -1,23 +1,10 @@
 #!/usr/bin/env python3
 
 # builtins
-import pathlib
-import json
-import pathlib
 import logging
-import sys
-import re
-
-# 3rd party
-import requests
-from jikanpy import Jikan
-import tvdbsimple as tvdb
 from datetime import timedelta
-from dateutil.parser import isoparse
-from dateutil.tz import UTC
 
 # my modules
-from mal_automaton.account import MAL_Account
 from mal_automaton.utils import pretty_print
 from mal_automaton.mal import MAL_Franchise
 
