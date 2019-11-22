@@ -86,6 +86,3 @@ class MediaObject(object):
             match = re.search(regex, metadata.grandparentGuid)
             self.tvdb_id =  int(match.group(1)) if match else None
 
-    def tvdb_info():
-        return 
-

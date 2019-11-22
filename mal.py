@@ -2,6 +2,7 @@
 
 # builtins
 import pathlib
+from enum import Enum
 from difflib import SequenceMatcher
 from itertools import combinations
 from collections import Counter
@@ -10,9 +11,6 @@ from collections import Counter
 from jikanpy import Jikan
 from dateutil.parser import isoparse
 from mementos import memento_factory, with_metaclass
-
-# my modules
-from mal_automaton.anime import AnimeType
 
 
 def mal_id_from_info(id=None, *, name=None):
@@ -130,6 +128,7 @@ class MAL_Series(metaclass=MAL_SeriesMemoizer):
     def __init__(self, mal_id, **kwargs):
         self._jikan = Jikan()
         self._raw = self._jikan.anime(mal_id)
+        self._cached = self._raw['request_cached']
         # MAL meta info
         self.id = mal_id
         self.url = self._raw['url']
@@ -141,13 +140,16 @@ class MAL_Series(metaclass=MAL_SeriesMemoizer):
         self.synonyms = self._raw['title_synonyms']
         # series meta info
         self.type = AnimeType(self._raw['type'])
-        self.source = self._raw['source']   # TODO: source material enum
-        self.status = self._raw['status']   # TODO: airing status enum
+        self.source = AnimeSource(self._raw['source'])
+        self.status = AiringStatus(self._raw['status'])
         self.score = self._raw['score']
         self.rank = self._raw['rank']
         # release date info
         self.airing = self._raw['airing']   # bool
-        self.premiered = isoparse(self._raw['aired']['from'])
+        if not self._raw['aired']['from']:
+            self.premiered = None
+        else:
+            self.premiered = isoparse(self._raw['aired']['from'])
         if not self._raw['aired']['to']:
             self.ended = None
         else:
@@ -208,4 +210,40 @@ class MAL_Episode(metaclass=MAL_EpisodeMemoizer):
 
     def __repr__(self):
         return f"<MAL_Episode: {self.title} [{self.id}]>"
+
+
+class AnimeType(Enum):
+    TV      = 'TV'
+    Movie   = 'Movie'
+    OVA     = 'OVA'
+    ONA     = 'ONA'
+    Special = 'Special'
+
+class AiringStatus(Enum):
+    Airing      = 'Airing', 1
+    Finished    = 'Finished Airing', 2
+    NotYetAired = 'Not Yet Aired', 3
+
+    def __new__(cls, *values):
+        obj = object.__new__(cls)
+        # first value is canonical value
+        obj._value_ = values[0]
+        for other_value in values[1:]:
+            cls._value2member_map_[other_value] = obj
+        obj._all_values = values
+        return obj
+
+    def __repr__(self):
+        return f'<{self.__class__.__name__}.{self._name_}: {", ".join([repr(v) for v in self._all_values])}>'
+
+class AnimeSource(Enum):
+    FourKomaManga = '4-koma manga'
+    Game          = 'Game'
+    LightNovel    = 'Light novel'
+    Manga         = 'Manga'
+    Novel         = 'Novel'
+    Original      = 'Original'
+    Other         = 'Other'
+    VisualNovel   = 'Visual novel'
+    WebManga      = 'Web manga'
 
