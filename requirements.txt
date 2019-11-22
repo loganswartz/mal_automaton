@@ -1,0 +1,6 @@
+pyyaml
+requests
+jikanpy
+mementos
+dateutil
+tvdbsimple

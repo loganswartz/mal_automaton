@@ -9,11 +9,11 @@ from pathlib import Path
 import tvdbsimple as tvdb
 from yaml import load
 try:
-    from yaml import CLoader as Loader, CDumper as Dumper
+    from yaml import CLoader as Loader
 except ImportError:
-    from yaml import Loader, Dumper
+    from yaml import Loader
 
-conf    = Path('~/.mal_automaton.conf')
+conf = Path('~/.mal_automaton.conf')
 logfile = Path('~/mal_automaton.log')
 
 # load the config
@@ -21,10 +21,10 @@ config = load(conf.expanduser().open(), Loader=Loader)
 tvdb.KEYS.API_KEY = config.get('tvdb_api_key')
 
 levels = {
-    'DEBUG'   : logging.DEBUG,
-    'INFO'    : logging.INFO,
-    'WARNING' : logging.WARNING,
-    'ERROR'   : logging.ERROR,
+    'DEBUG': logging.DEBUG,
+    'INFO': logging.INFO,
+    'WARNING': logging.WARNING,
+    'ERROR': logging.ERROR,
     'CRITICAL': logging.CRITICAL
 }
 loglevel = levels[config.get('loglevel')] if config.get('loglevel') else None

@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 # builtins
-from enum import Enum
 from difflib import SequenceMatcher
 from itertools import combinations
 from collections import Counter
@@ -11,26 +10,33 @@ from jikanpy import Jikan
 from dateutil.parser import isoparse
 from mementos import memento_factory
 
+# my modules
+from mal_automaton.enums import AnimeType, AiringStatus, AnimeSource
 
-def mal_id_from_info(id=None, *, name=None):
+
+def to_series_id(cls, args, kwargs):
     """
     Function that returns a MAL ID from either a given name or ID. Used by the
     memento factory to allow us to memoize based on the actual MAL ID of a
     series initialized through a name, instead of defaulting to memoizing based
     on init parameters (default mementos behavior)
     """
-    jikan = Jikan()
-    if id:
-        mal_id = id
-    elif name:
-        mal_id = jikan.search('anime', name)['results'][0]['mal_id']
-    else:
-        raise ValueError('You must specify an ID or name.')
-    return mal_id
+    def id_from_args(id=None, *, name=None):
+        jikan = Jikan()
+        if id:
+            mal_id = id
+        elif name:
+            mal_id = jikan.search('anime', name)['results'][0]['mal_id']
+        else:
+            raise ValueError('You must specify an ID or name.')
+        return mal_id
+    return (cls, id_from_args(*args, **kwargs))
 
 
-def episode_id_from_info(series, data):
-    return (series, data['episode_id'])
+def to_episode_id(cls, args, kwargs):
+    def series_episode_tuple_from_args(series, data):
+        return (series, data['episode_id'])
+    return (cls, series_episode_tuple_from_args(*args, **kwargs))
 
 
 """
@@ -41,19 +47,17 @@ we use that as the key. Without including the class in the tuple, creating a
 series with the same ID as an already created Franchise will only return that
 franchise, and vice versa.
 """
-MAL_SeriesMemoizer = memento_factory('MAL_SeriesMemoizer',
-        lambda cls, args, kwargs: (cls, mal_id_from_info(*args, **kwargs)))
-MAL_EpisodeMemoizer = memento_factory('MAL_EpisodeMemoizer',
-        lambda cls, args, kwargs: (cls, episode_id_from_info(*args, **kwargs)))
+MAL_SeriesMemoizer = memento_factory('MAL_SeriesMemoizer', to_series_id)
+MAL_EpisodeMemoizer = memento_factory('MAL_EpisodeMemoizer', to_episode_id)
 
 
 class MAL_Franchise(metaclass=MAL_SeriesMemoizer):
     def __init__(self, id, **kwargs):
         self._jikan = Jikan()
         self.series = self.get_franchise_list(id)
-        self.title = self.discern_title()   # assume that the first series is the title of the franchise
-        self.release_run = (self.series[0].premiered, self.series[-1].ended)   # TODO: check if show is still airing and change accordingly
-        self._absolute = [episode for series in self.series for episode in series.episodes]
+        self.title = self.discern_title()
+        self.release_run = (self.series[0].premiered, self.series[-1].ended)
+        self._absolute = [ep for series in self.series for ep in series.episodes]
 
     def discern_title(self):
         substrings = Counter()
@@ -69,11 +73,11 @@ class MAL_Franchise(metaclass=MAL_SeriesMemoizer):
 
         # check if we got any matches
         if substrings.most_common(1):
-            best_match = substrings.most_common(1)[0][0]
+            best = substrings.most_common(1)[0][0]
         else:
-            best_match = None
+            best = None
         # don't return substrings less than 4 characters
-        return best_match if best_match is not None and len(best_match) >= 4 else self.series[0].title
+        return best if best is not None and len(best) >= 4 else self.series[0].title
 
     def get_franchise_list(self, mal_id):
         """
@@ -121,7 +125,7 @@ class MAL_Franchise(metaclass=MAL_SeriesMemoizer):
 
     def absolute_episode(self, index):
         # make one big (ordered) list of episodes, and get the correct index from that list
-        return self._absolute[index-1]
+        return self._absolute[index - 1]
 
     def __repr__(self):
         return f"<MAL_Franchise: {self.title}>"
@@ -191,7 +195,7 @@ class MAL_Series(metaclass=MAL_SeriesMemoizer):
         episodes = resp['episodes']
         last_page = resp['episodes_last_page']
         if last_page > 1:
-            for i in range(2, last_page+1):
+            for i in range(2, last_page + 1):
                 episodes += self._jikan.anime(self.id, extension='episodes', page=i)['episodes']
         # return as episode object
         return [MAL_Episode(self, ep) for ep in episodes]
@@ -213,42 +217,4 @@ class MAL_Episode(metaclass=MAL_EpisodeMemoizer):
 
     def __repr__(self):
         return f"<MAL_Episode: {self.title} [{self.id}]>"
-
-
-class AnimeType(Enum):
-    TV      = 'TV'
-    Movie   = 'Movie'
-    OVA     = 'OVA'
-    ONA     = 'ONA'
-    Special = 'Special'
-
-
-class AiringStatus(Enum):
-    Airing      = 'Airing', 1
-    Finished    = 'Finished Airing', 2
-    NotYetAired = 'Not Yet Aired', 3
-
-    def __new__(cls, *values):
-        obj = object.__new__(cls)
-        # first value is canonical value
-        obj._value_ = values[0]
-        for other_value in values[1:]:
-            cls._value2member_map_[other_value] = obj
-        obj._all_values = values
-        return obj
-
-    def __repr__(self):
-        return f'<{self.__class__.__name__}.{self._name_}: {", ".join([repr(v) for v in self._all_values])}>'
-
-
-class AnimeSource(Enum):
-    FourKomaManga = '4-koma manga'
-    Game          = 'Game'
-    LightNovel    = 'Light novel'
-    Manga         = 'Manga'
-    Novel         = 'Novel'
-    Original      = 'Original'
-    Other         = 'Other'
-    VisualNovel   = 'Visual novel'
-    WebManga      = 'Web manga'
 

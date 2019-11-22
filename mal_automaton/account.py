@@ -8,7 +8,7 @@ import re
 import requests
 
 # my modules
-from mal_automaton.anime import AnimeList, WatchStatus
+from mal_automaton.animelist import AnimeList, WatchStatus
 from mal_automaton.utils import retry
 
 
@@ -25,7 +25,7 @@ class MAL_Account(object):
     making modifications to lists, and the Jikan object handles all the
     fetching of information from MAL.
     """
-    def __init__(self, username, password = None):
+    def __init__(self, username, password=None):
         self.username = username
         self.password = password
         if password:
@@ -100,7 +100,8 @@ class MAL_Session(object):
     """
     headers = {
         'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36',
+        'user-agent': ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
+                       '(KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36'),
     }
 
     def __init__(self, username, password):
@@ -127,35 +128,35 @@ class MAL_Session(object):
     @property
     def login_data(self):
         data = {
-            'user_name' : self.username,
-            'password'  : self.password,
-            'csrf'      : self.csrf_token,
-            'cookie'    : '1',
-            'sublogin'  : 'Login',
-            'submit'    : '1',
+            'user_name': self.username,
+            'password': self.password,
+            'csrf': self.csrf_token,
+            'cookie': '1',
+            'sublogin': 'Login',
+            'submit': '1',
         }
         return data
 
-    def add_series(self, mal_id, status = WatchStatus.PlanToWatch, score = 0, watched_episodes = 0):
+    def add_series(self, mal_id, status=WatchStatus.PlanToWatch, score=0, watched_episodes=0):
         url = 'https://myanimelist.net/ownlist/anime/add.json'
         data = {
-            'csrf'      : self.csrf_token,
-            'anime_id'  : mal_id,
-            'status'    : int(status),
-            'score'     : score,
+            'csrf': self.csrf_token,
+            'anime_id': mal_id,
+            'status': int(status),
+            'score': score,
             'num_watched_episodes': watched_episodes
         }
 
         resp = self.session.post(url, data=data, headers=self.headers)
         return resp.ok
 
-    def edit_series(self, mal_id, status = WatchStatus.Watching, score = 0, watched_episodes = 0):
+    def edit_series(self, mal_id, status=WatchStatus.Watching, score=0, watched_episodes=0):
         url = 'https://myanimelist.net/ownlist/anime/edit.json'
         data = {
-            'csrf'      : self.csrf_token,
-            'anime_id'  : mal_id,
-            'status'    : int(status),
-            'score'     : score,
+            'csrf': self.csrf_token,
+            'anime_id': mal_id,
+            'status': int(status),
+            'score': score,
             'num_watched_episodes': watched_episodes
         }
 

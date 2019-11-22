@@ -59,7 +59,7 @@ def find_equivalent_by_date(airdate, episode_list):
         if not episode.airdate:   # if airdate in MAL is null, abort
             return False
         log.debug(f"{episode.title} - mal: {episode.airdate}; tvdb: {airdate}")
-        return abs(episode.airdate-airdate) < delta
+        return abs(episode.airdate - airdate) < delta
 
     # check if played episode is in the MAL series using airdates
     return list(filter(one_day_apart, episode_list))

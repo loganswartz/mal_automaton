@@ -10,15 +10,7 @@ from dateutil.tz import UTC
 
 # my modules
 from mal_automaton.utils import AttrDict
-
-
-class PlexEvent(Enum):
-    play     = 'media.play'
-    stop     = 'media.stop'
-    pause    = 'media.pause'
-    resume   = 'media.resume'
-    scrobble = 'media.scrobble'
-    rate     = 'media.rate'
+from mal_automaton.enums import PlexEvent
 
 
 class PlexWebhook(object):
@@ -27,7 +19,7 @@ class PlexWebhook(object):
         webhook = AttrDict(webhook)
 
         self.is_server_hook = webhook.owner
-        self.is_user_hook   = webhook.user
+        self.is_user_hook = webhook.user
         # convert to enum
         self.event = PlexEvent(webhook.event)
         # get series, season, and episode data from webhook
@@ -39,7 +31,7 @@ class PlexWebhook(object):
 
 class PlexUser(object):
     def __init__(self, account):
-        self.id   = account.id
+        self.id = account.id
         self.name = account.title
 
 
@@ -51,21 +43,21 @@ class PlexServer(object):
 
 class PlexDevice(object):
     def __init__(self, player):
-        self.uuid  = player.uuid
-        self.ip    = player.publicAddress
-        self.name  = player.title
+        self.uuid = player.uuid
+        self.ip = player.publicAddress
+        self.name = player.title
         self.local = player.local
 
 
 class MediaObject(object):
     class LibrarySectionType(Enum):
-        Show  = 'show'
+        Show = 'show'
         Movie = 'movie'
         Music = 'music'
 
     class MediaType(Enum):
         Episode = 'episode'
-        Movie   = 'movie'
+        Movie = 'movie'
 
     def __init__(self, metadata):
         self.library_type = self.LibrarySectionType(metadata.librarySectionType)
@@ -82,5 +74,5 @@ class MediaObject(object):
             # get tvdb_id
             regex = r'com\.plexapp\.agents\.thetvdb:\/\/(\d+)\?'
             match = re.search(regex, metadata.grandparentGuid)
-            self.tvdb_id =  int(match.group(1)) if match else None
+            self.tvdb_id = int(match.group(1)) if match else None
 

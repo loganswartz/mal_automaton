@@ -7,7 +7,7 @@ import logging
 log = logging.getLogger(__name__)
 
 
-def retry(tries = 1):
+def retry(tries=1):
     """
     Decorator to retry something a certain amount of times. A function using
     this decorator should signal failure via an exception. The resulting
@@ -64,7 +64,7 @@ def pretty_print(list, *, debug=False):
         print(string)
 
 
-def get_subarray(arr, key, func = None):
+def get_subarray(arr, key, func=None):
     """
     This function is for when you have an array of dictionaries, and you want
     to find the dictionary containing some subvalue. For example, say you have

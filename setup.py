@@ -34,6 +34,6 @@ setuptools.setup(
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
         "Topic :: Multimedia :: Video",
         "Topic :: Utilities",
-        ],
+    ],
     python_requires='>=3.6',
 )

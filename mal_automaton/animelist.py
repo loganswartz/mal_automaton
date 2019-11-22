@@ -2,14 +2,14 @@
 
 # builtins
 import logging
-from enum import Enum
 
 # 3rd party
 from jikanpy import Jikan
-#from jikanpy.exceptions import APIException
+# from jikanpy.exceptions import APIException
 
 # my modules
-from mal_automaton.mal import MAL_Series, AnimeType, AiringStatus
+from mal_automaton.mal import MAL_Series
+from mal_automaton.enums import AnimeType, AiringStatus, WatchStatus
 
 
 log = logging.getLogger(__name__)
@@ -35,7 +35,7 @@ class AnimeList(object):
     def __next__(self):
         if self._iter < len(self._list):
             self._iter += 1
-            return self._list[self._iter-1]
+            return self._list[self._iter - 1]
         else:
             raise StopIteration
 
@@ -96,12 +96,4 @@ class AnimeStatus(object):
         self.watching = WatchStatus(status)
         self.score = score
         self.watched_episodes = watched_episodes
-
-
-class WatchStatus(Enum):
-    Watching    = 1
-    Completed   = 2
-    OnHold      = 3
-    Dropped     = 4
-    PlanToWatch = 6
 
