@@ -36,7 +36,7 @@ class AnimeType(Enum):
 class AiringStatus(MultiValueEnum):
     Airing = 'Airing', 1
     Finished = 'Finished Airing', 2
-    NotYetAired = 'Not Yet Aired', 3
+    NotYetAired = 'Not yet aired', 3
 
 
 class AnimeSource(Enum):

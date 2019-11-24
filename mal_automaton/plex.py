@@ -20,9 +20,8 @@ class PlexWebhook(object):
 
         self.is_server_hook = webhook.owner
         self.is_user_hook = webhook.user
-        # convert to enum
+        # convert all the parts of the raw webhook to nicer objects
         self.event = PlexEvent(webhook.event)
-        # get series, season, and episode data from webhook
         self.media = MediaObject(webhook.Metadata)
         self.user = PlexUser(webhook.Account)
         self.server = PlexServer(webhook.Server)

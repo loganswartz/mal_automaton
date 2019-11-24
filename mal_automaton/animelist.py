@@ -71,12 +71,12 @@ class AnimeListEntry(object):
         self._series = None
 
         # user specific
-        args = {
+        kwargs = {
             'status': data['watching_status'],
             'score': data['score'],
             'watched_episodes': data['watched_episodes'],
         }
-        self.status = AnimeStatus(**args)
+        self.status = AnimeStatus(**kwargs)
 
     @property
     def series(self):
