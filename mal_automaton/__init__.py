@@ -6,19 +6,22 @@ import sys
 from pathlib import Path
 
 # 3rd party
-import tvdbsimple as tvdb
 from yaml import load
 try:
     from yaml import CLoader as Loader
 except ImportError:
     from yaml import Loader
 
+
 conf = Path('~/.mal_automaton.conf')
 logfile = Path('~/mal_automaton.log')
 
 # load the config
-config = load(conf.expanduser().open(), Loader=Loader)
-tvdb.KEYS.API_KEY = config.get('tvdb_api_key')
+try:
+    config = load(conf.expanduser().open(), Loader=Loader)
+except FileNotFoundError:
+    print('Config not found, default values will be used.')
+    config = {}
 
 levels = {
     'DEBUG': logging.DEBUG,
@@ -28,7 +31,6 @@ levels = {
     'CRITICAL': logging.CRITICAL
 }
 loglevel = levels[config.get('loglevel')] if config.get('loglevel') else None
-
 
 # logging
 log = logging.getLogger('mal_automaton')
