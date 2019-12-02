@@ -218,5 +218,5 @@ class MAL_Episode(object, metaclass=MAL_Memoizer):
         self.video_url = data['video_url']
 
     def __repr__(self):
-        return f"<MAL_Episode: {self.title} [{self.id}]>"
+        return f"<MAL_Episode: {self.series.title_en:20.20} - '{self.title}' [E{self.id}]>"
 

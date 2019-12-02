@@ -68,7 +68,11 @@ class MediaObject(object):
             self.series = metadata.grandparentTitle
             self.season = metadata.parentIndex
             self.episode = metadata.index
-            self.airdate = isoparse(metadata.originallyAvailableAt).astimezone(UTC)
+            # TODO: populate data from TheTVDB instead of the webhook
+            if hasattr(metadata, 'originallyAvailableAt'):
+                self.airdate = isoparse(metadata.originallyAvailableAt).astimezone(UTC)
+            else:
+                self.airdate = None
 
             # get tvdb_id
             regex = r'com\.plexapp\.agents\.thetvdb:\/\/(\d+)\?'

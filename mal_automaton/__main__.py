@@ -25,6 +25,9 @@ if __name__ == "__main__":
 
         # load saved webhook and attempt to discern MAL id from the webhook
         webhook = load_webhook(webhook_path)
-        mal_id = tvdb_to_mal(webhook)
-        log.info(f"MAL ID was determined to be: {mal_id['mal_id']}")
+        results = tvdb_to_mal(webhook)
+        if results:
+            log.info(f"MAL ID was determined to be: {results['mal_id']}")
+        else:
+            log.info("No MAL equivalent found")
 
