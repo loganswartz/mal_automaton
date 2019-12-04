@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 
 import pytest
-import mementos
+import mal_automaton.memoizer
 from mal_automaton.mal import MAL_Series, MAL_Franchise
 
 
 @pytest.fixture
 def BlankMemoCache():
-    mementos.core._memento_cache = {}
+    mal_automaton.memoizer._memento_cache = {}
 
 
 @pytest.mark.usefixtures('BlankMemoCache')
