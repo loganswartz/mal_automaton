@@ -1,6 +1,5 @@
 pyyaml
 requests
 jikanpy
-mementos
 python-dateutil
 tvdbsimple

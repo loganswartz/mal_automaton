@@ -11,6 +11,7 @@ try:
     from yaml import CLoader as Loader
 except ImportError:
     from yaml import Loader
+import tvdbsimple as tvdb
 
 
 conf = Path('~/.mal_automaton.conf')
@@ -22,6 +23,11 @@ try:
 except FileNotFoundError:
     print('Config not found, default values will be used.')
     config = {}
+
+if config.get('tvdb_api_key'):
+    tvdb.KEYS.API_KEY = config.get('tvdb_api_key')
+else:
+    print('No TVDB API key found.')
 
 levels = {
     'DEBUG': logging.DEBUG,
@@ -41,7 +47,7 @@ file_log = logging.FileHandler(filename=logfile.expanduser(), mode='w')
 file_log.setLevel(logging.DEBUG)
 file_log.setFormatter(debug_format)
 # log info and above to stdout
-info_format = logging.Formatter('%(name)s: %(message)s')
+info_format = logging.Formatter('%(message)s')  # %(name)s: 
 stdout = logging.StreamHandler(sys.stdout)
 stdout.setLevel(logging.INFO)
 stdout.setFormatter(info_format)

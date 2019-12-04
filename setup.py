@@ -3,8 +3,11 @@
 import setuptools
 
 
-with open("README.md", "r") as fh:
+with open("README.md") as fh:
     long_description = fh.read()
+
+with open("requirements.txt") as f:
+    requirements = [line[:-1] for line in f]
 
 setuptools.setup(
     name="mal_automaton",
@@ -16,14 +19,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/loganswartz/mal_automaton",
     packages=setuptools.find_packages(),
-    install_requires=[
-        'pyyaml',
-        'requests',
-        'jikanpy',
-        'mementos',
-        'dateutil',
-        'tvdbsimple',
-    ],
+    install_requires=requirements,
     classifiers=[
         "Programming Language :: Python :: 3.6",
         "Operating System :: POSIX :: Linux",
