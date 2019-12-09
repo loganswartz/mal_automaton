@@ -25,6 +25,8 @@ jobs:
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --ignore=W391 --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
+      env:
+        TVDB_API_KEY: ${{ secrets.TVDB_API_KEY }}
       run: |
         pip install pytest
         python3 -m pytest

@@ -4,6 +4,7 @@
 import logging
 import sys
 from pathlib import Path
+import os
 
 # 3rd party
 from yaml import load
@@ -24,8 +25,10 @@ except FileNotFoundError:
     print('Config not found, default values will be used.')
     config = {}
 
-if config.get('tvdb_api_key'):
-    tvdb.KEYS.API_KEY = config.get('tvdb_api_key')
+if os.environ.get('TVDB_API_KEY'):
+    tvdb.KEYS.API_KEY = os.environ.get('TVDB_API_KEY')
+elif config.get('TVDB_API_KEY'):
+    tvdb.KEYS.API_KEY = config.get('TVDB_API_KEY')
 else:
     print('No TVDB API key found.')
 
