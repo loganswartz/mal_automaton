@@ -11,6 +11,7 @@ from dateutil.tz import UTC
 # my modules
 from mal_automaton.utils import AttrDict
 from mal_automaton.enums import PlexEvent
+from mal_automaton.tvdb import TVDB_Series
 
 
 class PlexWebhook(object):
@@ -68,14 +69,13 @@ class MediaObject(object):
             self.series = metadata.grandparentTitle
             self.season = metadata.parentIndex
             self.episode = metadata.index
-            # TODO: populate data from TheTVDB instead of the webhook
-            if hasattr(metadata, 'originallyAvailableAt'):
-                self.airdate = isoparse(metadata.originallyAvailableAt).astimezone(UTC)
-            else:
-                self.airdate = None
 
             # get tvdb_id
-            regex = r'com\.plexapp\.agents\.thetvdb:\/\/(\d+)\?'
+            regex = r'com\.plexapp\.agents\.thetvdb:\/\/(\d+)[\?\/]'
             match = re.search(regex, metadata.grandparentGuid)
-            self.tvdb_id = int(match.group(1)) if match else None
+            _tvdb_id = int(match.group(1)) if match else None
+
+            _series = TVDB_Series(_tvdb_id) if _tvdb_id is not None else None
+            self.tvdb = _series.seasons[self.season].episodes[self.episode]
+            self.airdate = self.tvdb.airdate
 

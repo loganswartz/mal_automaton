@@ -15,21 +15,6 @@ from mal_automaton.memoizer import memento_factory
 from mal_automaton.enums import AnimeType, AiringStatus, AnimeSource
 
 
-def series_memo_identifier(id=None, *, name=None):
-    jikan = Jikan()
-    if id:
-        mal_id = id
-    elif name:
-        mal_id = jikan.search('anime', name)['results'][0]['mal_id']
-    else:
-        raise ValueError('You must specify an ID or name.')
-    return mal_id
-
-
-def episode_memo_identifier(series, data):
-    return (series, data['episode_id'])
-
-
 def SeriesIDFactory(cls, *args, **kwargs):
     """
     Function that returns a MAL ID from either a given name or ID. Used by the
@@ -37,9 +22,22 @@ def SeriesIDFactory(cls, *args, **kwargs):
     series initialized through a name, instead of defaulting to memoizing based
     on init parameters (default mementos behavior)
     """
+    def series_memo_identifier(id=None, *, name=None):
+        jikan = Jikan()
+        if id:
+            mal_id = id
+        elif name:
+            mal_id = jikan.search('anime', name)['results'][0]['mal_id']
+        else:
+            raise ValueError('You must specify an ID or name.')
+        return mal_id
+
     return series_memo_identifier(*args, **kwargs)
 
 def EpisodeIDFactory(cls, *args, **kwargs):
+    def episode_memo_identifier(series, data):
+        return (series, data['episode_id'])
+
     return episode_memo_identifier(*args, **kwargs)
 
 """
@@ -55,7 +53,7 @@ MAL_EpisodeMemoizer = memento_factory('MAL_EpisodeMemoizer', EpisodeIDFactory)
 
 
 class MAL_Franchise(object, metaclass=MAL_SeriesMemoizer):
-    def __init__(self, id):
+    def __init__(self, id=None, *, name=None):
         self._jikan = Jikan()
         self.series = self.get_franchise_list(id)
         self.title = self.discern_title()
@@ -125,7 +123,7 @@ class MAL_Franchise(object, metaclass=MAL_SeriesMemoizer):
 
 
 class MAL_Series(object, metaclass=MAL_SeriesMemoizer):
-    def __init__(self, id):
+    def __init__(self, id=None, *, name=None):
         self._jikan = Jikan()
         self.id = id
         self._raw = self._jikan.anime(self.id)
@@ -210,5 +208,5 @@ class MAL_Episode(object, metaclass=MAL_EpisodeMemoizer):
 
     def __repr__(self):
         short_title = shorten(self.series.title, width=20, placeholder='...')
-        return f"<MAL_Episode: {short_title} - '{self.title}' [E{self.id}]>"
+        return f"<MAL_Episode: {short_title} - '{self.title}' [E{self.id:02}]>"
 

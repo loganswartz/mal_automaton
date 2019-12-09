@@ -15,7 +15,7 @@ log = logging.getLogger('mal_automaton')
 
 
 def load_webhook(path):
-    return PlexWebhook(json.load(path.open()))
+    return PlexWebhook(json.load(path.expanduser().open()))
 
 
 if __name__ == "__main__":
