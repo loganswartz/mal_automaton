@@ -56,48 +56,10 @@ def pretty_print(list, *, debug=False):
     string = ''
     string += '# -----------------------------------\n'
     for i in list:
-        string += f" > '{i.title}'\n"
+        string += f' > "{i.title}"\n'
     string += '# -----------------------------------\n'
     if debug:
         log.debug('\n' + string)
     else:
         print(string)
-
-
-def get_subarray(arr, key, func=None):
-    """
-    This function is for when you have an array of dictionaries, and you want
-    to find the dictionary containing some subvalue. For example, say you have
-    this array:
-
-        array = [
-            {'name' = 'a', 'order': 1},   # index = 0
-            {'name' = 'b', 'order': 2},   # index = 1
-            {'name' = 'c', 'order': 3},   # index = 2
-            {'name' = 'd', 'order': 4},   # index = 3
-        ]
-
-    You want to find the array with an 'order' value of 3, so you run it through
-    this function (Ex: `new = get_subarray(array, 'order')` ), and you will get
-    out an array like so:
-
-        new = [
-            {1: 0},   # these are {<value of order>, <index in original list>}
-            {2: 1},
-            {3: 2},
-            {4: 3},
-        ]
-
-    Thus, you can then check if the subvalue you were looking for exists in one
-    of the dictionaries (with `<subvalue you wanted> in new`), and then find the
-    original dictionary that value came from with `new[<subvalue you wanted>]`
-    """
-    # func is an optional function to apply to the keys of the new array
-    new = {}
-    for index, value in enumerate(arr):
-        if func:
-            new[func(value[key])] = index
-        else:
-            new[value[key]] = index
-    return new
 

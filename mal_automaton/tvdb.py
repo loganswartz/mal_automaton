@@ -6,6 +6,7 @@ from itertools import groupby
 # 3rd party
 import tvdbsimple as tvdb
 from dateutil.parser import isoparse
+from dateutil.tz import UTC
 
 # my modules
 from mal_automaton.memoizer import memento_factory
@@ -112,7 +113,7 @@ class TVDB_Episode(object, metaclass=TVDB_EpisodeMemoizer):
         self.number = self._raw.airedEpisodeNumber
         self.absolute = self._raw.absoluteNumber
         self.title = self._raw.episodeName
-        self.airdate = isoparse(self._raw.firstAired)
+        self.airdate = isoparse(self._raw.firstAired).astimezone(UTC)
         self.rating = self._raw.contentRating   # TODO: enum
         self.overview = self._raw.overview
         self.directors = self._raw.directors
