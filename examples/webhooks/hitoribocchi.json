@@ -1,0 +1,52 @@
+{
+    "event": "media.play",
+    "user": true,
+    "owner": false,
+    "Account": {
+        "id": 25,
+        "thumb": "https://plex.tv/users/x89pk9nudx7n31gs/avatar?c=1545320342",
+        "title": "playa-bridge"
+    },
+    "Server": {
+        "title": "Micky-plex-server",
+        "uuid": "mxj08l384wdj8rkbexu4wsqwscx2u26w2scjq8fe"
+    },
+    "Player": {
+        "local": true,
+        "publicAddress": "215.88.206.34",
+        "title": "Bergen-pc",
+        "uuid": "fys28ln3fb53q3apzszzndc2"
+    },
+    "Metadata": {
+        "librarySectionType": "show",
+        "ratingKey": "48703",
+        "key": "/library/metadata/48703",
+        "parentRatingKey": "48645",
+        "grandparentRatingKey": "48644",
+        "guid": "com.plexapp.agents.thetvdb://358411/1/6?lang=en",
+        "parentGuid": "com.plexapp.agents.thetvdb://358411/1?lang=en",
+        "grandparentGuid": "com.plexapp.agents.thetvdb://358411?lang=en",
+        "librarySectionTitle": "Anime",
+        "librarySectionID": 6,
+        "librarySectionKey": "/library/sections/6",
+        "type": "episode",
+        "title": "Summer Comes in 5-7-5",
+        "grandparentKey": "/library/metadata/48644",
+        "parentKey": "/library/metadata/48645",
+        "grandparentTitle": "Hitoribocchi no Marumaruseikatsu",
+        "parentTitle": "Season 1",
+        "contentRating": "TV-PG",
+        "summary": "\"Fever, come to me!\" Bocchi shouts, desperately wanting to skip school. She tries clenching her fist, taking a cold shower, and so on... but it all just makes her feel even better?",
+        "index": 6,
+        "parentIndex": 1,
+        "year": 2019,
+        "thumb": "/library/metadata/48703/thumb/1571687951",
+        "art": "/library/metadata/48644/art/1571687951",
+        "grandparentThumb": "/library/metadata/48644/thumb/1571687951",
+        "grandparentArt": "/library/metadata/48644/art/1571687951",
+        "originallyAvailableAt": "2019-05-11",
+        "addedAt": 1562085642,
+        "updatedAt": 1562170323,
+        "lastViewedAt": 1561341465
+    }
+}

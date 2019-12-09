@@ -1,0 +1,96 @@
+{
+    "event": "media.play",
+    "user": true,
+    "owner": false,
+    "Account": {
+        "id": 28,
+        "thumb": "https://plex.tv/users/maufevxk93hltv6k/avatar?c=1564129140",
+        "title": "empiric-joint"
+    },
+    "Server": {
+        "title": "Betsy-plex-server",
+        "uuid": "ffdn26z8tkf0f6frn4g1vsh3x0ewfihyhjhpi8u8"
+    },
+    "Player": {
+        "local": false,
+        "publicAddress": "198.59.154.221",
+        "title": "Cupid-pc",
+        "uuid": "yrxmz8kp4hituobe7cd8nqu5"
+    },
+    "Metadata": {
+        "librarySectionType": "show",
+        "ratingKey": "6185",
+        "key": "/library/metadata/6185",
+        "parentRatingKey": "6175",
+        "grandparentRatingKey": "6174",
+        "guid": "com.plexapp.agents.thetvdb://303867/1/10?lang=en",
+        "parentGuid": "com.plexapp.agents.thetvdb://303867/1?lang=en",
+        "grandparentGuid": "com.plexapp.agents.thetvdb://303867?lang=en",
+        "librarySectionTitle": "Anime",
+        "librarySectionID": 6,
+        "librarySectionKey": "/library/sections/6",
+        "type": "episode",
+        "title": "A Final Flame for This Over-The-Top Fortress!",
+        "titleSort": "Final Flame for This Over-The-Top Fortress!",
+        "grandparentKey": "/library/metadata/6174",
+        "parentKey": "/library/metadata/6175",
+        "grandparentTitle": "KonoSuba - God's Blessing on This Wonderful World!",
+        "parentTitle": "Season 1",
+        "contentRating": "TV-14",
+        "summary": "The rampaging ancient weapon: the mobile fortress, Destroyer, is headed straight for Kazuma and party's city!",
+        "index": 10,
+        "parentIndex": 1,
+        "viewCount": 1,
+        "lastViewedAt": 1485642114,
+        "year": 2016,
+        "thumb": "/library/metadata/6185/thumb/1570065693",
+        "art": "/library/metadata/6174/art/1517894242",
+        "parentThumb": "/library/metadata/6175/thumb/1517894242",
+        "grandparentThumb": "/library/metadata/6174/thumb/1517894242",
+        "grandparentArt": "/library/metadata/6174/art/1517894242",
+        "grandparentTheme": "/library/metadata/6174/theme/1517894242",
+        "originallyAvailableAt": "2016-03-17",
+        "addedAt": 1535962688,
+        "updatedAt": 1505155116,
+        "chapterSource": "media",
+        "Director": [
+            {
+                "id": 8731,
+                "filter": "director=8731",
+                "tag": "Shunji Yoshida"
+            },
+            {
+                "id": 8741,
+                "filter": "director=8741",
+                "tag": "Chiaki Furuzumi"
+            },
+            {
+                "id": 8736,
+                "filter": "director=8736",
+                "tag": "Y\u016bki Kinoshita"
+            },
+            {
+                "id": 8752,
+                "filter": "director=8752",
+                "tag": "Miyuki Honda"
+            },
+            {
+                "id": 8733,
+                "filter": "director=8733",
+                "tag": "Kazuma Uike"
+            }
+        ],
+        "Writer": [
+            {
+                "id": 8729,
+                "filter": "writer=8729",
+                "tag": "Makoto Uezu"
+            },
+            {
+                "id": 8739,
+                "filter": "writer=8739",
+                "tag": "Tetsuto Sait\u014d"
+            }
+        ]
+    }
+}

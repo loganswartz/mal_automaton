@@ -1,0 +1,55 @@
+{
+    "event": "media.play",
+    "user": true,
+    "owner": false,
+    "Account": {
+        "id": 85,
+        "thumb": "https://plex.tv/users/laq9g2f8rhr4txjc/avatar?c=1569648604",
+        "title": "singlet-hornwort"
+    },
+    "Server": {
+        "title": "Connecticut-plex-server",
+        "uuid": "x3o3h9evros6a1zldo5b4k0a1itp5ll2ep61q0h1"
+    },
+    "Player": {
+        "local": false,
+        "publicAddress": "189.202.75.227",
+        "title": "Rutherford-pc",
+        "uuid": "znf4x2ju5u3r1esf719n3r3p"
+    },
+    "Metadata": {
+        "librarySectionType": "show",
+        "ratingKey": "50743",
+        "key": "/library/metadata/50743",
+        "parentRatingKey": "50235",
+        "grandparentRatingKey": "6285",
+        "guid": "com.plexapp.agents.thetvdb://259640/4/7?lang=en",
+        "parentGuid": "com.plexapp.agents.thetvdb://259640/4?lang=en",
+        "grandparentGuid": "com.plexapp.agents.thetvdb://259640?lang=en",
+        "librarySectionTitle": "Anime",
+        "librarySectionID": 6,
+        "librarySectionKey": "/library/sections/6",
+        "type": "episode",
+        "title": "Stigma of the Disqualified",
+        "grandparentKey": "/library/metadata/6285",
+        "parentKey": "/library/metadata/50235",
+        "grandparentTitle": "Sword Art Online",
+        "parentTitle": "Season 4",
+        "contentRating": "TV-14",
+        "summary": "",
+        "index": 7,
+        "parentIndex": 4,
+        "viewCount": 1,
+        "lastViewedAt": 1574736418,
+        "year": 2019,
+        "thumb": "/library/metadata/50743/thumb/1574531354",
+        "art": "/library/metadata/6285/art/1574531354",
+        "parentThumb": "/library/metadata/50235/thumb/1574531354",
+        "grandparentThumb": "/library/metadata/6285/thumb/1574531354",
+        "grandparentArt": "/library/metadata/6285/art/1574531354",
+        "grandparentTheme": "/library/metadata/6285/theme/1574531354",
+        "originallyAvailableAt": "2019-11-24",
+        "addedAt": 1575193231,
+        "updatedAt": 1574843205
+    }
+}

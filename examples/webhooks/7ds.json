@@ -1,0 +1,53 @@
+{
+    "event": "media.stop",
+    "user": true,
+    "owner": true,
+    "Account": {
+        "id": 0,
+        "thumb": "https://plex.tv/users/fl0feuo9qmzk2quh/avatar?c=1563613686",
+        "title": "dry-thinnish"
+    },
+    "Server": {
+        "title": "Ephesus-plex-server",
+        "uuid": "gt3rz26iabf43r5cwmu5jcuuxt65qw7e0i8l7zev"
+    },
+    "Player": {
+        "local": false,
+        "publicAddress": "200.134.205.107",
+        "title": "Sepoy-pc",
+        "uuid": "zcerd8lp7j6qu2aixaplk2eq"
+    },
+    "Metadata": {
+        "librarySectionType": "show",
+        "ratingKey": "50358",
+        "key": "/library/metadata/50358",
+        "parentRatingKey": "50332",
+        "grandparentRatingKey": "12515",
+        "guid": "com.plexapp.agents.thetvdb://284131/3/3?lang=en",
+        "parentGuid": "com.plexapp.agents.thetvdb://284131/3?lang=en",
+        "grandparentGuid": "com.plexapp.agents.thetvdb://284131?lang=en",
+        "librarySectionTitle": "Anime",
+        "librarySectionID": 6,
+        "librarySectionKey": "/library/sections/6",
+        "type": "episode",
+        "title": "Those Without Light",
+        "grandparentKey": "/library/metadata/12515",
+        "parentKey": "/library/metadata/50332",
+        "grandparentTitle": "The Seven Deadly Sins",
+        "parentTitle": "Season 3",
+        "contentRating": "TV-14",
+        "summary": "",
+        "index": 3,
+        "parentIndex": 3,
+        "year": 2019,
+        "thumb": "/library/metadata/50358/thumb/1574310845",
+        "art": "/library/metadata/12515/art/1574310846",
+        "grandparentThumb": "/library/metadata/12515/thumb/1574310846",
+        "grandparentArt": "/library/metadata/12515/art/1574310846",
+        "grandparentTheme": "/library/metadata/12515/theme/1574310846",
+        "originallyAvailableAt": "2019-10-23",
+        "addedAt": 1574009888,
+        "updatedAt": 1572241792,
+        "lastViewedAt": 1575795266
+    }
+}

@@ -1,0 +1,51 @@
+{
+    "event": "media.pause",
+    "user": true,
+    "owner": true,
+    "Account": {
+        "id": 66,
+        "thumb": "https://plex.tv/users/oxzys76gce7igxxk/avatar?c=1558903926",
+        "title": "twelfth-physiotherapist"
+    },
+    "Server": {
+        "title": "Stanton-plex-server",
+        "uuid": "slayn9zp2wam719s0npggbpjxb43xcw4jk038904"
+    },
+    "Player": {
+        "local": true,
+        "publicAddress": "139.125.103.248",
+        "title": "Atreus-pc",
+        "uuid": "2sr2i8rf7lzbgmyzmps6m19a"
+    },
+    "Metadata": {
+        "librarySectionType": "show",
+        "ratingKey": "50645",
+        "key": "/library/metadata/50645",
+        "parentRatingKey": "50232",
+        "grandparentRatingKey": "50231",
+        "guid": "com.plexapp.agents.thetvdb://367067/1/4?lang=en",
+        "parentGuid": "com.plexapp.agents.thetvdb://367067/1?lang=en",
+        "grandparentGuid": "com.plexapp.agents.thetvdb://367067?lang=en",
+        "librarySectionTitle": "Anime",
+        "librarySectionID": 6,
+        "librarySectionKey": "/library/sections/6",
+        "type": "episode",
+        "title": "Trigger",
+        "grandparentKey": "/library/metadata/50231",
+        "parentKey": "/library/metadata/50232",
+        "grandparentTitle": "No Guns Life",
+        "parentTitle": "Season 1",
+        "summary": "Tetsuro took over Juzo's body and found the culprits to the puppet casses. However, the culprits were children like him. They were experimented on and used as tools by the Ber\u00fchren company. He tries to save them, but he cannot do it alone.",
+        "index": 4,
+        "parentIndex": 1,
+        "year": 2019,
+        "thumb": "/library/metadata/50645/thumb/1572544608",
+        "art": "/library/metadata/50231/art/1572544609",
+        "grandparentThumb": "/library/metadata/50231/thumb/1572544609",
+        "grandparentArt": "/library/metadata/50231/art/1572544609",
+        "originallyAvailableAt": "2019-11-01",
+        "addedAt": 1575323841,
+        "updatedAt": 1573175007,
+        "lastViewedAt": 1575010228
+    }
+}

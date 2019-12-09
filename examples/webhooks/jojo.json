@@ -1,0 +1,55 @@
+{
+    "event": "media.play",
+    "user": true,
+    "owner": false,
+    "Account": {
+        "id": 17,
+        "thumb": "https://plex.tv/users/4o8lo0pv9wxgsoyd/avatar?c=1570355841",
+        "title": "delicacy-courtyard"
+    },
+    "Server": {
+        "title": "Galatia-plex-server",
+        "uuid": "e9s7s8t0iuln46ujm46bx9z242u164j3b4jynxcw"
+    },
+    "Player": {
+        "local": false,
+        "publicAddress": "64.66.224.78",
+        "title": "Jacobus-pc",
+        "uuid": "cjik42vfpozvjhq7732mgiq4"
+    },
+    "Metadata": {
+        "librarySectionType": "show",
+        "ratingKey": "50303",
+        "key": "/library/metadata/50303",
+        "parentRatingKey": "50292",
+        "grandparentRatingKey": "11572",
+        "guid": "com.plexapp.agents.thetvdb://153021/1/11?lang=en",
+        "parentGuid": "local://50292",
+        "grandparentGuid": "com.plexapp.agents.thetvdb://262954?lang=en",
+        "librarySectionTitle": "Anime",
+        "librarySectionID": 6,
+        "librarySectionKey": "/library/sections/6",
+        "type": "episode",
+        "title": "Episode 11",
+        "titleSort": "Game Master",
+        "grandparentKey": "/library/metadata/11572",
+        "parentKey": "/library/metadata/50292",
+        "grandparentTitle": "JoJo's Bizarre Adventure (2012)",
+        "parentTitle": "Season 4",
+        "contentRating": "TV-MA",
+        "summary": "",
+        "index": 11,
+        "parentIndex": 4,
+        "viewCount": 1,
+        "lastViewedAt": 1107960039,
+        "year": 2012,
+        "thumb": "/library/metadata/50303/thumb/1573927219",
+        "art": "/library/metadata/11572/art/1574902655",
+        "parentThumb": "/library/metadata/50292/thumb/1574903022",
+        "grandparentThumb": "/library/metadata/11572/thumb/1574902655",
+        "grandparentArt": "/library/metadata/11572/art/1574902655",
+        "grandparentTheme": "/library/metadata/11572/theme/1574902655",
+        "addedAt": 1252425455,
+        "updatedAt": 1365646249
+    }
+}

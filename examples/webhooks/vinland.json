@@ -1,0 +1,53 @@
+{
+    "event": "media.stop",
+    "user": true,
+    "owner": true,
+    "Account": {
+        "id": 92,
+        "thumb": "https://plex.tv/users/h5ubk0apggopnvkv/avatar?c=1557787166",
+        "title": "gastronomy-evidential"
+    },
+    "Server": {
+        "title": "Goodman-plex-server",
+        "uuid": "s0hz7ikzrx201dzi3gmgnz3q5no9vzwbuv2i2uas"
+    },
+    "Player": {
+        "local": true,
+        "publicAddress": "222.103.57.37",
+        "title": "Calkins-pc",
+        "uuid": "a5natbjn5hnz0v61fop7dkmt"
+    },
+    "Metadata": {
+        "librarySectionType": "show",
+        "ratingKey": "50744",
+        "key": "/library/metadata/50744",
+        "parentRatingKey": "49141",
+        "grandparentRatingKey": "49140",
+        "guid": "com.plexapp.agents.thetvdb://359274/1/19?lang=en",
+        "parentGuid": "com.plexapp.agents.thetvdb://359274/1?lang=en",
+        "grandparentGuid": "com.plexapp.agents.thetvdb://359274?lang=en",
+        "librarySectionTitle": "Anime",
+        "librarySectionID": 6,
+        "librarySectionKey": "/library/sections/6",
+        "type": "episode",
+        "title": "Episode 19",
+        "grandparentKey": "/library/metadata/49140",
+        "parentKey": "/library/metadata/49141",
+        "grandparentTitle": "Vinland Saga",
+        "parentTitle": "Season 1",
+        "summary": "",
+        "index": 19,
+        "parentIndex": 1,
+        "year": 2019,
+        "thumb": "/library/metadata/50744/thumb/1574615634",
+        "art": "/library/metadata/49140/art/1574615634",
+        "parentThumb": "/library/metadata/49141/thumb/1574615634",
+        "grandparentThumb": "/library/metadata/49140/thumb/1574615634",
+        "grandparentArt": "/library/metadata/49140/art/1574615634",
+        "grandparentTheme": "/library/metadata/49140/theme/1574615634",
+        "originallyAvailableAt": "2019-11-25",
+        "addedAt": 1575573131,
+        "updatedAt": 1575409332,
+        "lastViewedAt": 1574697551
+    }
+}

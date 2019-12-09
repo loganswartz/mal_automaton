@@ -1,0 +1,51 @@
+{
+    "event": "media.resume",
+    "user": true,
+    "owner": false,
+    "Account": {
+        "id": 35,
+        "thumb": "https://plex.tv/users/a97d2kf3d5csatzj/avatar?c=1575086481",
+        "title": "squirmy-alimentary"
+    },
+    "Server": {
+        "title": "Andalusia-plex-server",
+        "uuid": "0an0k3i4j0gp2wj7b6h1aqiu7xskmto7vdiao8zl"
+    },
+    "Player": {
+        "local": true,
+        "publicAddress": "176.72.145.138",
+        "title": "Evelyn-pc",
+        "uuid": "d29rjcivk2nolqk56tmox3ce"
+    },
+    "Metadata": {
+        "librarySectionType": "show",
+        "ratingKey": "50750",
+        "key": "/library/metadata/50750",
+        "parentRatingKey": "50749",
+        "grandparentRatingKey": "50748",
+        "guid": "com.plexapp.agents.thetvdb://369048/1/1?lang=en",
+        "parentGuid": "com.plexapp.agents.thetvdb://369048/1?lang=en",
+        "grandparentGuid": "com.plexapp.agents.thetvdb://369048?lang=en",
+        "librarySectionTitle": "Anime",
+        "librarySectionID": 6,
+        "librarySectionKey": "/library/sections/6",
+        "type": "episode",
+        "title": "This Hero is Too Cautious",
+        "grandparentKey": "/library/metadata/50748",
+        "parentKey": "/library/metadata/50749",
+        "grandparentTitle": "Cautious Hero: The Hero Is Overpowered but Overly Cautious",
+        "parentTitle": "Season 1",
+        "summary": "A goddess named Ristarte is given the task of saving a world with an S-ranked difficulty level. She summons her champion, a man named Seiya, whose abilities are off the charts, but whose overly-cautious personality may give her second thoughts.\r\n",
+        "index": 1,
+        "parentIndex": 1,
+        "year": 2019,
+        "thumb": "/library/metadata/50750/thumb/1574779336",
+        "art": "/library/metadata/50748/art/1574779336",
+        "grandparentThumb": "/library/metadata/50748/thumb/1574779336",
+        "grandparentArt": "/library/metadata/50748/art/1574779336",
+        "originallyAvailableAt": "2019-10-02",
+        "addedAt": 1572191514,
+        "updatedAt": 1574538178,
+        "lastViewedAt": 1573179088
+    }
+}

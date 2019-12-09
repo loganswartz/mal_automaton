@@ -1,0 +1,55 @@
+{
+    "event": "media.resume",
+    "user": true,
+    "owner": true,
+    "Account": {
+        "id": 13,
+        "thumb": "https://plex.tv/users/r6rihluwkku050rz/avatar?c=1555928157",
+        "title": "transpose-sway"
+    },
+    "Server": {
+        "title": "Barnum-plex-server",
+        "uuid": "zdvelo2qcgy55s3x1opk1vkps8yfan8ew7ajc45s"
+    },
+    "Player": {
+        "local": false,
+        "publicAddress": "28.28.120.241",
+        "title": "Zion-pc",
+        "uuid": "w31s09spz4y6dt8s62ac5ypv"
+    },
+    "Metadata": {
+        "librarySectionType": "show",
+        "ratingKey": "50648",
+        "key": "/library/metadata/50648",
+        "parentRatingKey": "49129",
+        "grandparentRatingKey": "49128",
+        "guid": "com.plexapp.agents.thetvdb://355774/1/18?lang=en",
+        "parentGuid": "com.plexapp.agents.thetvdb://355774/1?lang=en",
+        "grandparentGuid": "com.plexapp.agents.thetvdb://355774?lang=en",
+        "librarySectionTitle": "Anime",
+        "librarySectionID": 6,
+        "librarySectionKey": "/library/sections/6",
+        "type": "episode",
+        "title": "Stone Wars",
+        "grandparentKey": "/library/metadata/49128",
+        "parentKey": "/library/metadata/49129",
+        "grandparentTitle": "Dr. STONE",
+        "parentTitle": "Season 1",
+        "contentRating": "TV-PG",
+        "summary": "",
+        "index": 18,
+        "parentIndex": 1,
+        "viewCount": 1,
+        "lastViewedAt": 1573868262,
+        "year": 2019,
+        "thumb": "/library/metadata/50648/thumb/1572619954",
+        "art": "/library/metadata/49128/art/1572619954",
+        "parentThumb": "/library/metadata/49129/thumb/1572619954",
+        "grandparentThumb": "/library/metadata/49128/thumb/1572619954",
+        "grandparentArt": "/library/metadata/49128/art/1572619954",
+        "grandparentTheme": "/library/metadata/49128/theme/1572619954",
+        "originallyAvailableAt": "2019-11-01",
+        "addedAt": 1573498019,
+        "updatedAt": 1573543104
+    }
+}

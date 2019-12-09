@@ -1,0 +1,54 @@
+{
+    "event": "media.play",
+    "user": true,
+    "owner": false,
+    "Account": {
+        "id": 18,
+        "thumb": "https://plex.tv/users/7cjlvwbpgkwgtn57/avatar?c=1559350962",
+        "title": "loincloth-abuse"
+    },
+    "Server": {
+        "title": "Borealis-plex-server",
+        "uuid": "283jjgog15ksc14hxs2j7kmhtdspqs6ajwc7boel"
+    },
+    "Player": {
+        "local": false,
+        "publicAddress": "98.175.106.18",
+        "title": "Birgit-pc",
+        "uuid": "27rrq1e9lqnx334irq4l9stq"
+    },
+    "Metadata": {
+        "librarySectionType": "show",
+        "ratingKey": "50817",
+        "key": "/library/metadata/50817",
+        "parentRatingKey": "50816",
+        "grandparentRatingKey": "50753",
+        "guid": "com.plexapp.agents.thetvdb://81618/1/1?lang=en",
+        "parentGuid": "com.plexapp.agents.thetvdb://81618/1?lang=en",
+        "grandparentGuid": "com.plexapp.agents.thetvdb://81618?lang=en",
+        "librarySectionTitle": "Anime",
+        "librarySectionID": 6,
+        "librarySectionKey": "/library/sections/6",
+        "type": "episode",
+        "title": "Into the Eternal Night",
+        "grandparentKey": "/library/metadata/50753",
+        "parentKey": "/library/metadata/50816",
+        "grandparentTitle": "Legend of the Galactic Heroes",
+        "parentTitle": "Season 1",
+        "summary": "January 1, 796 S.C. / 487 I.C.: in the Astarte star system, a 20 000 spaceships Imperial fleet under Reinhard von Lohengramm's command is about to be cornered by three Alliance fleets of 13 000 spaceships each. Against the advice of his subordinates, Reinhard decides to strike first in order to defeat each fleet before they can join. The Allied commanders, trusting the overall odds of 2 to 1, don't anticipate this and rebuff Yang Wen-li's advice to quickly regroup their forces. ",
+        "index": 1,
+        "parentIndex": 1,
+        "year": 1988,
+        "thumb": "/library/metadata/50817/thumb/1574823960",
+        "art": "/library/metadata/50753/art/1574824036",
+        "parentThumb": "/library/metadata/50816/thumb/1574824032",
+        "grandparentThumb": "/library/metadata/50753/thumb/1574824036",
+        "grandparentArt": "/library/metadata/50753/art/1574824036",
+        "grandparentTheme": "/library/metadata/50753/theme/1574824036",
+        "originallyAvailableAt": "1988-12-01",
+        "addedAt": 1027216250,
+        "updatedAt": 1412524430,
+        "chapterSource": "media",
+        "lastViewedAt": 1455041285
+    }
+}
