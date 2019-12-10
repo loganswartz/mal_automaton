@@ -20,7 +20,7 @@ class TestConstructors:
         (MAL_Franchise, [], {'name': 'Attack on Titan'}),
     ]
 
-    @pytest.mark.parametrize(('cls','args','kwargs'), cases, ids=str)
+    @pytest.mark.parametrize(('cls', 'args', 'kwargs'), cases, ids=str)
     def test_constructor(self, cls, args, kwargs):
         assert cls(*args, **kwargs)
 

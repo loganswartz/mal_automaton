@@ -45,15 +45,17 @@ def TVDB_EpisodeIDFactory(cls, *args, **kwargs):
 
     return episode_memo_identifier(*args, **kwargs)
 
+
 TVDB_SeriesMemoizer = memento_factory('TVDB_SeriesMemoizer', TVDB_SeriesIDFactory, use_key=True)
 TVDB_SeasonMemoizer = memento_factory('TVDB_SeasonMemoizer', TVDB_SeasonIDFactory)
 TVDB_EpisodeMemoizer = memento_factory('TVDB_EpisodeMemoizer', TVDB_EpisodeIDFactory)
+
 
 class TVDB_Series(object, metaclass=TVDB_SeriesMemoizer):
     def __init__(self, id=None, *, name=None):
         self.id = id
         self._raw = tvdb.Series(self.id)
-        _data = self._raw.info()
+        self._raw.info()
         self.series_id = self._raw.seriesId
         self.title = self._raw.seriesName
         self.language = self._raw.language   # TODO: enum
@@ -76,7 +78,7 @@ class TVDB_Series(object, metaclass=TVDB_SeriesMemoizer):
         if self._seasons:
             return self._seasons
 
-        _resp = self._raw.Episodes.all()
+        self._raw.Episodes.all()
         _episodes = sorted(self._raw.Episodes.episodes, key=lambda ep: ep['airedSeason'])
         _seasons = [list(group) for key, group in groupby(_episodes, lambda ep: ep['airedSeason'])]
         # convert to Season objects
@@ -89,6 +91,7 @@ class TVDB_Series(object, metaclass=TVDB_SeriesMemoizer):
 
     def __repr__(self):
         return f"<TVDB_Series: {self.title}>"
+
 
 class TVDB_Season(object, metaclass=TVDB_SeasonMemoizer):
     def __init__(self, series, number, episodes):
@@ -108,7 +111,7 @@ class TVDB_Episode(object, metaclass=TVDB_EpisodeMemoizer):
         self.series = series
         self.season = season
         self._raw = tvdb.Episode(id)
-        _data = self._raw.info()
+        self._raw.info()
 
         self.number = self._raw.airedEpisodeNumber
         self.absolute = self._raw.absoluteNumber

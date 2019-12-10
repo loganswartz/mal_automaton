@@ -50,7 +50,7 @@ file_log = logging.FileHandler(filename=logfile.expanduser(), mode='w')
 file_log.setLevel(logging.DEBUG)
 file_log.setFormatter(debug_format)
 # log info and above to stdout
-info_format = logging.Formatter('%(message)s')  # %(name)s: 
+info_format = logging.Formatter('%(message)s')  # %(name)s:
 stdout = logging.StreamHandler(sys.stdout)
 stdout.setLevel(logging.INFO)
 stdout.setFormatter(info_format)

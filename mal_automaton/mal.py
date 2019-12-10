@@ -34,11 +34,13 @@ def SeriesIDFactory(cls, *args, **kwargs):
 
     return series_memo_identifier(*args, **kwargs)
 
+
 def EpisodeIDFactory(cls, *args, **kwargs):
     def episode_memo_identifier(series, data):
         return (series, data['episode_id'])
 
     return episode_memo_identifier(*args, **kwargs)
+
 
 """
 Create the factory. The factory calls a function that returns a key to be used

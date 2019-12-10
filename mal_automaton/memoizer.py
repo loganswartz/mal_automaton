@@ -7,6 +7,7 @@ found here: https://bitbucket.org/jeunice/mementos/src/default/
 
 _memento_cache = {}
 
+
 def memento_factory(name, func, *, use_key=False):
     """
     Return a memoizing metaclass with the given name and key function.
@@ -14,7 +15,6 @@ def memento_factory(name, func, *, use_key=False):
     the most meta thing you've ever seen. If it isn't, both congratulations
     and sympathies are in order!
     """
-
     def call(cls, *args, **kwargs):
         identifier = func(cls, *args, **kwargs)
         key = (cls, identifier)
@@ -30,6 +30,7 @@ def memento_factory(name, func, *, use_key=False):
 
     mc = type(name, (type,), {'__call__': call})
     return mc
+
 
 """
 The key differences between this memento_factory() and the one from the

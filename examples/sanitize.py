@@ -6,7 +6,6 @@ import json
 import sys
 import secrets
 import string
-from datetime import datetime
 import time
 
 # 3rd party
@@ -38,6 +37,7 @@ class Randomizer(object):
 
     def choice(self, iterable):
         return secrets.choice(iterable)
+
 
 def sanitize(file):
     rand = Randomizer()

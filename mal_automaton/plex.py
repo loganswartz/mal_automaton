@@ -4,10 +4,6 @@
 from enum import Enum
 import re
 
-# 3rd party
-from dateutil.parser import isoparse
-from dateutil.tz import UTC
-
 # my modules
 from mal_automaton.utils import AttrDict
 from mal_automaton.enums import PlexEvent
