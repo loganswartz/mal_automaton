@@ -1,7 +1,8 @@
 # mal_automaton
 Automatic updating of your MAL via Plex webhooks.
 
-![Build Status](https://github.com/loganswartz/mal_automaton/workflows/Lint%20&amp;%20Test/badge.svg)
+[![Code Style Status](https://github.com/loganswartz/mal_automaton/workflows/code%20style/badge.svg)](https://github.com/loganswartz/mal_automaton/actions?query=workflow%3A%22code+style%22)
+[![Build Status](https://github.com/loganswartz/mal_automaton/workflows/build/badge.svg)](https://github.com/loganswartz/mal_automaton/actions?query=workflow%3A%22build%22)
 
 ## Todo
 - [ ] Smarter series matching
