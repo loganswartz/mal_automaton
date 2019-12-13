@@ -80,9 +80,9 @@ class TVDB_Series(object, metaclass=TVDB_SeriesMemoizer):
 
         self._raw.Episodes.all()
         _episodes = sorted(self._raw.Episodes.episodes, key=lambda ep: ep['airedSeason'])
-        _seasons = [list(group) for key, group in groupby(_episodes, lambda ep: ep['airedSeason'])]
+        _seasons = {key: list(group) for key, group in groupby(_episodes, lambda ep: ep['airedSeason'])}
         # convert to Season objects
-        self._seasons = [TVDB_Season(self, num, eps) for num, eps in enumerate(_seasons)]
+        self._seasons = {num: TVDB_Season(self, num, eps) for num, eps in _seasons.items()}
         return self._seasons
 
     @property

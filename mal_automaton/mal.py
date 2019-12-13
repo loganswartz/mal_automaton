@@ -57,12 +57,12 @@ MAL_EpisodeMemoizer = memento_factory('MAL_EpisodeMemoizer', EpisodeIDFactory)
 class MAL_Franchise(object, metaclass=MAL_SeriesMemoizer):
     def __init__(self, id=None, *, name=None):
         self._jikan = Jikan()
-        self.series = self.get_franchise_list(id)
-        self.title = self.discern_title()
+        self.series = self._get_franchise_list(id)
+        self.title = self._discern_title()
         self.release_run = (self.series[0].premiered, self.series[-1].ended)
         self._absolute = [ep for series in self.series for ep in series.episodes]
 
-    def discern_title(self):
+    def _discern_title(self):
         substrings = Counter()
 
         # compare all combinations of series titles in the franchise
@@ -82,7 +82,7 @@ class MAL_Franchise(object, metaclass=MAL_SeriesMemoizer):
         # don't return substrings less than 4 characters
         return best if best is not None and len(best) >= 4 else self.series[0].title
 
-    def get_franchise_list(self, id):
+    def _get_franchise_list(self, id):
         """
         This function takes a MAL anime ID, finds all the sequels and prequels to
         that series, and returns info on them all in an ordered array. Essentially,
