@@ -3,38 +3,51 @@
 # Imports {{{
 # builtins
 import sys
+import re
 import json
 import pathlib
 import argparse
+from datetime import datetime
 
 # 3rd party
-from flask import Flask
+from flask import Flask, request
 from cheroot.wsgi import Server as WSGIServer, PathInfoDispatcher
 
 # }}}
 
 
+def parse_for_id(webhook):
+    regex = r'thetvdb:\/\/(\d*)'
+    result = re.search(regex, webhook['Metadata']['grandparentGuid'])
+    return result.group(1)
+
+
 def create_app(log_location: pathlib.Path):
     app = Flask(__name__)
 
-    @app.route('/')
+    @app.route('/', methods=['POST'])
     def record():
         print("Webhook recieved:")
-        webhook = request.get_json(force=True)
+        webhook = json.loads(request.form['payload'])
 
+        timestamp = datetime.now().isoformat()
         show = webhook['Metadata']['grandparentTitle']
+        id = parse_for_id(webhook)
         season = webhook['Metadata']['parentIndex']
         episode = webhook['Metadata']['index']
-        event = webhook['event']
-        print("  Event: {event}")
-        print("  Item: {show}, S{season}E{episode}")
+        event = webhook['event'].split('.')[-1]
+
+        print(f"  Event: {event}")
+        print(f"  Item: {show}, S{season}E{episode}")
 
         if not log_location.is_dir():
             log_location.mkdir()
 
-        log = log_location / f"{show}-S{season}E{episode}-{event}.json"
+        log = log_location / f"{timestamp}-{show}-{id}-S{season}E{episode}-{event}.json"
         with log.open('w') as fp:
             json.dump(webhook, fp, indent=4)
+
+        return "OK"
 
     return app
 
